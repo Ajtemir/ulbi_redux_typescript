@@ -1,32 +1,4 @@
-
-enum UserActionType {
-    FETCH_USERS = "FETCH_USERS",
-    FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS",
-    FETCH_USERS_ERROR = "FETCH_USERS_ERROR",
-
-}
-
-interface UserState {
-    users: any[];
-    loading: boolean;
-    error: null | string,
-
-}
-
-interface FetchUsersAction extends UserAction<null>{
-    type: UserActionType.FETCH_USERS,
-}
-interface FetchUsersSuccessAction extends UserAction<any[]>{
-    type: UserActionType.FETCH_USERS_SUCCESS,
-}
-interface FetchUsersErrorAction extends UserAction<string> {
-    type: UserActionType.FETCH_USERS_ERROR,
-}
-
-interface UserAction<T> {
-    type: UserActionType;
-    payload?: T;
-}
+import {UserAction, UserActionType, UserState} from "../../types/todo";
 
 const initialState = {
     users:[],
@@ -34,7 +6,7 @@ const initialState = {
     error: null
 }
 
-export const userReducer = (state:UserState = initialState, action: UserAction<any>): UserState  => {
+export const userReducer = (state:UserState = initialState, action: UserAction): UserState  => {
     switch (action.type){
         case UserActionType.FETCH_USERS:
             return {loading: true, error: null, users:[]}
@@ -44,6 +16,5 @@ export const userReducer = (state:UserState = initialState, action: UserAction<a
             return {loading: false, error: action.payload, users:[]}
         default:
             return state
-
     }
 }
